@@ -63,12 +63,6 @@ if [ ! -f requirements.txt ]; then
   echo "-e ." > requirements.txt
 fi
 
-# If no runtime given, assume default version.
-if [ ! -f runtime.txt ]; then
-  puts-step "No runtime.txt provided; assuming $DEFAULT_PYTHON_VERSION."
-  echo $DEFAULT_PYTHON_VERSION > runtime.txt
-fi
-
 # ### The Cache
 mkdir -p $CACHE_DIR
 
@@ -84,20 +78,19 @@ set -e
 
 mkdir -p $(dirname $PROFILE_PATH)
 
-# Install Python.
-puts-step "Preparing Python runtime (2.7.3)"
-curl http://pythonversions.s3.amazonaws.com/app/anaconda-1.4.6.tar.gz -s | tar jx &> /dev/null
-mv app/anaconda .heroku/anaconda
-rm -fr app
+if [ ! -d /app/.heroku/anaconda ]; then
+    # Install Python.
+    puts-step "Preparing Python runtime (2.7.3)"
+    curl http://pythonversions.s3.amazonaws.com/app/anaconda-1.4.6.tar.gz -s | tar jx &> /dev/null
+    mv app/.heroku/anaconda /app/.heroku/anaconda
+    rm -fr app
 
-hash -r
+    hash -r
+fi
 
 # Install dependencies with Pip.
 puts-step "Installing dependencies using Conda (1.4.6)"
-/app/.heroku/ install bitarray --yes
-
-# Django collectstatic support.
-source $BIN_DIR/steps/collectstatic
+/app/.heroku/anaconda/bin/conda install bitarray --yes
 
 # ### Finalize
 #
