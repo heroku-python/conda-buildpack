@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# bin/release <build-dir>
+
+BIN_DIR=$(cd $(dirname $0); pwd) # absolute path
+BUILD_DIR=$1
+
