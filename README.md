@@ -3,6 +3,7 @@ Conda Buildpack
 
 This is a [Heroku Buildpack](https://devcenter.heroku.com/articles/buildpacks) for [Conda](http://docs.continuum.io/conda/), the Python distribution for scientific computing by Continuum Analytics.
 
+**Warning**: this buildpack is still a work in progress.
 
 Usage
 -----
