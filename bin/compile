@@ -83,8 +83,8 @@ if [ ! -d /app/.heroku/miniconda ]; then
     puts-step "Preparing Python runtime"
     curl -O -s http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
     chmod +x Miniconda-latest-Linux-x86_64.sh
-    ./Miniconda-latest-Linux-x86_64.sh -b -p app/.heroku/miniconda
-    mv app/.heroku/miniconda /app/.heroku/miniconda
+    ./Miniconda-latest-Linux-x86_64.sh -b -p /app/.heroku/miniconda
+    #mv app/.heroku/miniconda /app/.heroku/miniconda
     rm -fr app
 
     hash -r
