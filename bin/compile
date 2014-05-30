@@ -57,12 +57,6 @@ cd $BUILD_DIR
 # Experimental pre_compile hook.
 source $BIN_DIR/steps/hooks/pre_compile
 
-# If no requirements given, assume `setup.py develop`.
-if [ ! -f requirements.txt ]; then
-  puts-step "No requirements.txt provided; assuming dist package."
-  echo "-e ." > requirements.txt
-fi
-
 # ### The Cache
 mkdir -p $CACHE_DIR
 
@@ -76,21 +70,11 @@ set +e
 mkdir .heroku &> /dev/null
 set -e
 
+# Make profile.d directory.
 mkdir -p $(dirname $PROFILE_PATH)
 
-if [ ! -d /app/.heroku/anaconda ]; then
-    # Install Python.
-    puts-step "Preparing Python runtime (2.7.3)"
-    curl http://pythonversions.s3.amazonaws.com/app/anaconda-1.4.6.tar.gz -s | tar jx &> /dev/null
-    mv app/.heroku/anaconda /app/.heroku/anaconda
-    rm -fr app
-
-    hash -r
-fi
-
-# Install dependencies with Pip.
-puts-step "Installing dependencies using Conda (1.4.6)"
-/app/.heroku/anaconda/bin/conda install bitarray --yes
+# Actuall do the Anaconda steps.
+source $BIN_DIR/steps/anaconda_compile
 
 # ### Finalize
 #
