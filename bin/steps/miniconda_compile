@@ -1,0 +1,12 @@
+puts-step "Preparing Python/Miniconda Environment (3.5.2)"
+
+curl -Os http://repo.continuum.io/miniconda/Miniconda-3.5.2-Linux-x86_64.sh
+bash Miniconda-3.5.2-Linux-x86_64.sh  -p /app/.heroku/miniconda/ -b
+conda install pip --yes
+
+
+puts-step "Installing dependencies using Conda"
+conda install --file conda-requirements.txt --yes
+
+puts-step "Installing dependencies using Pip"
+pip install -r requirements.txt  --exists-action=w --allow-all-external
