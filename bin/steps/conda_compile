@@ -1,9 +1,9 @@
-puts-step "Preparing Python/Miniconda Environment (3.5.2)"
-
-curl -Os http://repo.continuum.io/miniconda/Miniconda-3.5.2-Linux-x86_64.sh
-bash Miniconda-3.5.2-Linux-x86_64.sh  -p /app/.heroku/miniconda/ -b | indent
-conda install pip --yes | indent
-# TODO: write a file that marks this as complete.
+if [ ! -d /app/.heroku/miniconda ]; then
+    puts-step "Preparing Python/Miniconda Environment (3.5.2)"
+    curl -Os http://repo.continuum.io/miniconda/Miniconda-3.5.2-Linux-x86_64.sh
+    bash Miniconda-3.5.2-Linux-x86_64.sh  -p /app/.heroku/miniconda/ -b | indent
+    conda install pip --yes | indent
+fi
 
 
 if [ -f conda-requirements.txt ]; then
