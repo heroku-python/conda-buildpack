@@ -19,4 +19,4 @@ if [ ! -f $BUILD_DIR/requirements.txt ] && [ ! -f $BUILD_DIR/conda-requirements.
   exit 1
 fi
 
-echo Python/Miniconda
+echo Python/Conda
