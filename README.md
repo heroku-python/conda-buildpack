@@ -27,7 +27,7 @@ Example usage:
 $ ls
 Procfile  conda-requirements.txt  numbercrunch.py
 
-$ heroku create --buildpack https://github.com/kennethreitz/anaconda-buildpack.git
+$ heroku create --buildpack https://github.com/kennethreitz/miniconda-buildpack.git
 
 $ git push heroku master
 ...
@@ -41,7 +41,7 @@ $ git push heroku master
 You can also add it to upcoming builds of an existing application:
 
 ```console
-$ heroku config:add BUILDPACK_URL=https://github.com/kennethreitz/anaconda-buildpack.git
+$ heroku config:add BUILDPACK_URL=https://github.com/kennethreitz/miniconda-buildpack.git
 ```
 
 
