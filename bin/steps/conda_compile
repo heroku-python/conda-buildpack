@@ -5,8 +5,12 @@ bash Miniconda-3.5.2-Linux-x86_64.sh  -p /app/.heroku/miniconda/ -b | indent
 conda install pip --yes | indent
 
 
-puts-step "Installing dependencies using Conda"
-conda install --file conda-requirements.txt --yes | indent
+if [ -f conda-requirements.txt]; then
+    puts-step "Installing dependencies using Conda"
+    conda install --file conda-requirements.txt --yes | indent
+fi
 
-puts-step "Installing dependencies using Pip"
-pip install -r requirements.txt  --exists-action=w --allow-all-external | indent
+if [ -f requirements.txt]; then
+    puts-step "Installing dependencies using Pip"
+    pip install -r requirements.txt  --exists-action=w --allow-all-external | indent
+fi
