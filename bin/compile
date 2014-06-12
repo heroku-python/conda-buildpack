@@ -73,8 +73,8 @@ set -e
 # Make profile.d directory.
 mkdir -p $(dirname $PROFILE_PATH)
 
-# Actuall do the Miniconda steps.
-source $BIN_DIR/steps/miniconda_compile
+# Actuall do the conda steps.
+source $BIN_DIR/steps/conda_compile
 
 # ### Finalize
 #
