@@ -83,3 +83,9 @@ Ran 129 tests in 1.375s
 OK
 <unittest.runner.TextTestResult run=129 errors=0 failures=0>
 ```
+
+## Fair Warning
+
+Heroku limits the final application footprint (slug) size to 300MB. Start small. 
+
+ॐ
