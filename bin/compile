@@ -73,11 +73,13 @@ set -e
 # Make profile.d directory.
 mkdir -p $(dirname $PROFILE_PATH)
 
-# Actuall do the conda steps.
+# Actually do the conda steps.
 source $BIN_DIR/steps/conda_compile
 
+# Collect static
+sub-env $BIN_DIR/steps/collectstatic
+
 # ### Finalize
-#
 
 # Store new artifacts in cache.
 for dir in $CACHED_DIRS; do
@@ -90,7 +92,6 @@ set-env PATH '$HOME/.heroku/miniconda/bin:$PATH'
 set-env PYTHONUNBUFFERED true
 set-default-env LANG en_US.UTF-8
 set-default-env PYTHONHASHSEED random
-
 
 # Experimental post_compile hook.
 source $BIN_DIR/steps/hooks/post_compile

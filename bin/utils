@@ -52,3 +52,23 @@ function deep-mv (){
   rm -fr $1/!(tmp)
   find -H $1 -maxdepth 1 -name '.*' -a \( -type d -o -type f -o -type l \) -exec rm -fr '{}' \;
 }
+
+
+sub-env() {
+
+  WHITELIST=${2:-''}
+  BLACKLIST=${3:-'^(GIT_DIR|PYTHONHOME|LD_LIBRARY_PATH|LIBRARY_PATH|PATH)$'}
+
+  (
+    if [ -d "$ENV_DIR" ]; then
+      for e in $(ls $ENV_DIR); do
+        echo "$e" | grep -E "$WHITELIST" | grep -qvE "$BLACKLIST" &&
+        export "$e=$(cat $ENV_DIR/$e)"
+        :
+      done
+    fi
+
+    $1
+
+  )
+}
