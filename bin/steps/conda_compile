@@ -1,8 +1,23 @@
+# determine Python version
+DEFAULT_PYTHON_VERSION="python-2.7.9"
+# If no runtime given, assume default version.
+if [ ! -f runtime.txt ]; then
+   echo $DEFAULT_PYTHON_VERSION > runtime.txt
+fi
+PYTHON_VERSION=$(cat runtime.txt)
+# split on '-' and take just the number
+PYTHON_VERSION_NUMBER=`echo $PYTHON_VERSION | cut -d \- -f 2`
+
 if [ ! -d /app/.heroku/miniconda ]; then
-    puts-step "Preparing Python/Miniconda Environment (3.5.2)"
-    curl -Os http://repo.continuum.io/miniconda/Miniconda-3.7.3-Linux-x86_64.sh
-    bash Miniconda-3.7.3-Linux-x86_64.sh  -p /app/.heroku/miniconda/ -b | indent
-    rm -fr Miniconda-3.7.3-Linux-x86_64.sh
+    puts-step "Preparing Python/Miniconda Environment"
+    curl -Os http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
+    bash Miniconda-latest-Linux-x86_64.sh  -p /app/.heroku/miniconda/ -b | indent
+    rm -fr Miniconda-latest-Linux-x86_64.sh
+
+    # maybe check for updates - condaenv must be deactivated
+    # conda update --yes conda
+    conda create -n condaenv --yes python=$PYTHON_VERSION_NUMBER
+    source activate condaenv
 
     conda install pip --yes | indent
 fi
@@ -10,6 +25,7 @@ fi
 
 if [ -f conda-requirements.txt ]; then
     puts-step "Installing dependencies using Conda"
+    source activate condaenv
     conda install --file conda-requirements.txt --yes | indent
 fi
 
