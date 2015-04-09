@@ -4,5 +4,5 @@
 cat <<EOF
 ---
 config_vars:
-  PATH: /app/.heroku/anaconda/bin:/usr/local/bin:/usr/bin:/bin
+  PATH: /app/.heroku/anaconda/bin:/app/.heroku/miniconda/bin:/usr/local/bin:/usr/bin:/bin
 EOF
