@@ -13,6 +13,12 @@ if [ -f conda-requirements.txt ]; then
     conda install --file conda-requirements.txt --yes | indent
 fi
 
+if [ -f conda-bokeh-dev-requirements.txt ]; then
+    puts-step "Installing bokeh-dev dependencies using Conda"
+    conda install -c bokeh/channel/dev --file conda-bokeh-dev-requirements.txt --yes | indent
+fi
+
+
 if [ -f requirements.txt ]; then
     puts-step "Installing dependencies using Pip"
     pip install -r requirements.txt  --exists-action=w --allow-all-external | indent
