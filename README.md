@@ -86,6 +86,6 @@ OK
 
 ## Fair Warning
 
-Heroku limits the final application footprint (slug) size to 300MB. Start small. 
+Heroku limits the final application footprint (slug) size to 300MB. Start small. In case the slug size limit is exceeded, deleting the build cache through the [heroku-repo plugin](https://github.com/heroku/heroku-repo#purge_cache) might help.
 
 ॐ
