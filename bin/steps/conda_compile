@@ -7,6 +7,10 @@ if [ ! -d /app/.heroku/miniconda ]; then
     conda install pip --yes | indent
 fi
 
+if [ -f conda-channels.txt ]; then
+    puts-step "Installing conda channels"
+    cat conda-channels.txt | xargs -I {} conda config --add channels {}
+fi
 
 if [ -f conda-requirements.txt ]; then
     puts-step "Installing dependencies using Conda"
