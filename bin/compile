@@ -24,12 +24,9 @@ if [ -d "$ENV_DIR" ]; then
   WHITELIST=${2:-''}
   BLACKLIST=${3:-'^(GIT_DIR|PYTHONHOME|LD_LIBRARY_PATH|LIBRARY_PATH|PATH)$'}
   for e in $(ls $ENV_DIR); do
-    echo "$e"
     export "$e=$(cat $ENV_DIR/$e)"
   done
 fi
-
-echo "$FTP_USER"
 
 CACHED_DIRS=".heroku"
 
