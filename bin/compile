@@ -20,10 +20,13 @@ ENV_DIR=$3
 
 
 if [ -d "$ENV_DIR" ]; then
+  echo "restoring environment"
+  WHITELIST=${2:-''}
+  BLACKLIST=${3:-'^(GIT_DIR|PYTHONHOME|LD_LIBRARY_PATH|LIBRARY_PATH|PATH)$'}
   for e in $(ls $ENV_DIR); do
-    echo "$e" | grep -E "$WHITELIST" | grep -qvE "$BLACKLIST" &&
-      export "$e=$(cat $ENV_DIR/$e)"
-      :
+    echo "$e" | grep -E "$WHITELIST" | grep -qvE "$BLACKLIST" && 
+    export "$e=$(cat $ENV_DIR/$e)"
+    :
   done
 fi
 
