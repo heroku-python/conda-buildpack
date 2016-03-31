@@ -31,6 +31,7 @@ if [ -d "$ENV_DIR" ]; then
   done
 fi
 
+echo "$FTP_USER"
 
 CACHED_DIRS=".heroku"
 
