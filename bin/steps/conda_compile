@@ -7,6 +7,8 @@ if [ ! -d /app/.heroku/miniconda ]; then
     conda install pip --yes | indent
 fi
 
+echo "nomkl" > $HOME/.heroku/miniconda/conda-meta/pinned
+
 
 if [ -f conda-requirements.txt ]; then
     puts-step "Installing dependencies using Conda"

@@ -1,3 +1,0 @@
-#!/bin/sh
-echo "nomkl" > $HOME/.heroku/miniconda/conda-meta/pinned
-echo "Placed pinned file into $HOME/.heroku/miniconda/conda-meta/pinned"
