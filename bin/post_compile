@@ -1,0 +1,3 @@
+#!/bin/sh
+echo "nomkl" > ./.heroku/miniconda/conda-meta/pinned
+
