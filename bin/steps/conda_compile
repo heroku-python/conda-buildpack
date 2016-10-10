@@ -9,13 +9,15 @@ fi
 
 echo "nomkl" > $HOME/.heroku/miniconda/conda-meta/pinned
 echo "added pinned file in $HOME/.heroku/miniconda/conda-meta/pinned"
-conda install nomkl
 
 if [ -n "${CONDA_CHANNELS}" ]; then
     for channel in ${CONDA_CHANNELS}; do
+        puts-step "Add conda channel $channel"
         conda config --add channels $channel
     done
 fi
+
+conda install nomkl
 
 puts-step "Looking for conda deps in ${CONDA_REQ_FILE:-conda-requirements.txt}"
 if [ -f ${CONDA_REQ_FILE:-conda-requirements.txt} ]; then
