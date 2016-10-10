@@ -12,14 +12,18 @@ echo "added pinned file in $HOME/.heroku/miniconda/conda-meta/pinned"
 conda install nomkl
 
 
-if [ -f conda-requirements.txt ]; then
+if [ -f ${CONDA_REQ_FILE:-conda-requirements.txt} ]; then
     puts-step "Installing dependencies using Conda"
-    conda install --file conda-requirements.txt --yes | indent
+    conda install --file ${CONDA_REQ_FILE:-conda-requirements.txt} --yes | indent
 fi
 
 if [ -f requirements.txt ]; then
     puts-step "Installing dependencies using Pip"
     pip install -r requirements.txt  --exists-action=w --allow-all-external | indent
+fi
+
+if [ -f setup.py ]; then
+    pip install --exists-action=w --allow-all-external -e . | indent
 fi
 
 # Clean up the installation environment .
