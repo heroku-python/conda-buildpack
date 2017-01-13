@@ -3,6 +3,12 @@ Conda Buildpack
 
 This is a [Heroku Buildpack](https://devcenter.heroku.com/articles/buildpacks) for [Conda](http://conda.pydata.org/), the Python distribution for scientific computing by Continuum Analytics.
 
+-----------------------
+
+**Note:** Heroku now recommends using their beta Docker support to achieve [similar results](https://github.com/heroku-examples/python-miniconda). 
+
+-----------------------
+
 This buildpack enables the installation of binary packages through the
 open source [conda](http://conda.pydata.org/) application.  Conda is
 recognized as being core to Continuum's Anaconda Scientific Python distro
