@@ -9,17 +9,31 @@ fi
 
 echo "nomkl" > $HOME/.heroku/miniconda/conda-meta/pinned
 echo "added pinned file in $HOME/.heroku/miniconda/conda-meta/pinned"
-conda install nomkl
 
-
-if [ -f conda-requirements.txt ]; then
-    puts-step "Installing dependencies using Conda"
-    conda install --file conda-requirements.txt --yes | indent
+if [ -n "${CONDA_CHANNELS}" ]; then
+    for channel in ${CONDA_CHANNELS}; do
+        puts-step "Add conda channel $channel"
+        conda config --add channels $channel
+    done
 fi
 
+conda install nomkl
+
+puts-step "Looking for conda deps in ${CONDA_REQ_FILE:-conda-requirements.txt}"
+if [ -f ${CONDA_REQ_FILE:-conda-requirements.txt} ]; then
+    puts-step "Installing dependencies using Conda form ${CONDA_REQ_FILE}"
+    conda install --file ${CONDA_REQ_FILE:-conda-requirements.txt} --yes | indent
+fi
+
+puts-step "Looking for deps in requirements.txt"
 if [ -f requirements.txt ]; then
-    puts-step "Installing dependencies using Pip"
+    puts-step "Installing dependencies using Pip from requirements.txt"
     pip install -r requirements.txt  --exists-action=w --allow-all-external | indent
+fi
+
+if [ -f setup.py ]; then
+    puts-step "Installing setup.py using pip install -e ."
+    pip install --exists-action=w --allow-all-external -e . | indent
 fi
 
 # Clean up the installation environment .

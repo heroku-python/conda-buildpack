@@ -2,7 +2,7 @@
 
 # Usage:
 #
-#     $ bin/compile <build-dir> <cache-dir>
+#     $ bin/compile <build-dir> <cache-dir> <env-dir>
 
 
 # Fail fast and fail hard.
@@ -16,6 +16,7 @@ BIN_DIR=$(cd $(dirname $0); pwd) # absolute path
 ROOT_DIR=$(dirname $BIN_DIR)
 BUILD_DIR=$1
 CACHE_DIR=$2
+ENV_DIR=$3
 
 CACHED_DIRS=".heroku"
 
@@ -30,6 +31,7 @@ export BUILD_DIR CACHE_DIR BIN_DIR PROFILE_PATH
 
 # Syntax sugar.
 source $BIN_DIR/utils
+
 
 # Directory Hacks for path consistiency.
 APP_DIR='/app'
@@ -73,7 +75,11 @@ set -e
 # Make profile.d directory.
 mkdir -p $(dirname $PROFILE_PATH)
 
-# Actuall do the conda steps.
+# Add environment variables
+export_env_dir $ENV_DIR
+
+
+# Actually do the conda steps.
 source $BIN_DIR/steps/conda_compile
 
 # ### Finalize
