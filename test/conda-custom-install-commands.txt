@@ -1,0 +1,1 @@
+conda install -c menpo opencv=2.4.11

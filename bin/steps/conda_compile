@@ -11,6 +11,12 @@ echo "nomkl" > $HOME/.heroku/miniconda/conda-meta/pinned
 echo "added pinned file in $HOME/.heroku/miniconda/conda-meta/pinned"
 conda install nomkl
 
+if [ -f conda-custom-install-commands.txt ]; then
+    puts-step "Installing dependencies using Custom Conda commands"
+    while IFS='' read -r line || [[ -n "$line" ]]; do
+    	eval "$line --yes | indent"
+	done < conda-custom-install-commands.txt
+fi
 
 if [ -f conda-requirements.txt ]; then
     puts-step "Installing dependencies using Conda"
