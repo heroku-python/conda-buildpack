@@ -19,7 +19,7 @@ fi
 echo "nomkl" > $HOME/.heroku/miniconda/conda-meta/pinned
 echo "conda ==${VERSION}" >> $HOME/.heroku/miniconda/conda-meta/pinned
 echo "added pinned file in $HOME/.heroku/miniconda/conda-meta/pinned"
-conda install nomkl
+conda install nomkl --yes | indent
 
 
 if [ -f conda-requirements.txt ]; then
