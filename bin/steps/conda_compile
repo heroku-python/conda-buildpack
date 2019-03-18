@@ -17,6 +17,7 @@ if [ ! -d /app/.heroku/miniconda ]; then
 fi
 
 echo "nomkl" > $HOME/.heroku/miniconda/conda-meta/pinned
+echo "conda ==${VERSION}" >> $HOME/.heroku/miniconda/conda-meta/pinned
 echo "added pinned file in $HOME/.heroku/miniconda/conda-meta/pinned"
 conda install nomkl
 
