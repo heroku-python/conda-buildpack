@@ -1,8 +1,17 @@
+set +e
+
+MINICONDA_VERSION=$(cat conda-runtime.txt | tr -d "\n")
+IFS='-' read -r -a VERSION_ARRAY <<< ${MINICONDA_VERSION}
+VERSION=${VERSION_ARRAY[1]}
+
+# The location of the pre-compiled python binary.
+VENDORED_MINICONDA="${VENDOR_URL}/miniconda/${MINICONDA_VERSION}-Linux-x86_64.sh"
+
 if [ ! -d /app/.heroku/miniconda ]; then
     puts-step "Preparing Python/Miniconda Environment"
-    curl -Os https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
-    bash Miniconda-latest-Linux-x86_64.sh  -p /app/.heroku/miniconda/ -b | indent
-    rm -fr Miniconda-latest-Linux-x86_64.sh
+    curl -Os $VENDORED_MINICONDA
+    bash ${MINICONDA_VERSION}-Linux-x86_64.sh  -p /app/.heroku/miniconda/ -b | indent
+    rm -fr ${MINICONDA_VERSION}-Linux-x86_64.sh
 
     conda install pip --yes | indent
 fi
