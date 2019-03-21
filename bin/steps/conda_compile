@@ -15,7 +15,8 @@ conda install nomkl
 
 if [ -f conda-requirements.txt ]; then
     puts-step "Installing q-ta-lib using Conda"
-    conda install -c quantopian ta-lib=0.4.9=np111py27_0
+    conda uninstall -c quantopian ta-lib=0.4.9
+    conda install -c quantopian ta-lib=0.4.9
 fi
 
 if [ -f requirements.txt ]; then
