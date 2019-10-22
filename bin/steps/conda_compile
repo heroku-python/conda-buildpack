@@ -7,8 +7,11 @@ if [ ! -d /app/.heroku/miniconda ]; then
     conda install pip --yes | indent
 fi
 
+puts-step "Updating conda..." | indent
+conda update conda --yes | indent
+
 echo "nomkl" > $HOME/.heroku/miniconda/conda-meta/pinned
-echo "added pinned file in $HOME/.heroku/miniconda/conda-meta/pinned"
+puts-step "added pinned file in $HOME/.heroku/miniconda/conda-meta/pinned"
 conda install nomkl
 
 
