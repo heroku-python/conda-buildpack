@@ -1,10 +1,12 @@
-puts-step "Preparing Python/Miniconda Environment"
-curl -Os https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
-bash Miniconda-latest-Linux-x86_64.sh  -p /app/.heroku/miniconda/ -b | indent
-rm -fr Miniconda-latest-Linux-x86_64.sh
+if [ ! -d /app/.heroku/miniconda ]; then
+    puts-step "Preparing Python/Miniconda Environment"
+    curl -Os https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
+    bash Miniconda-latest-Linux-x86_64.sh  -p /app/.heroku/miniconda/ -b | indent
+    rm -fr Miniconda-latest-Linux-x86_64.sh
 
-conda update conda
-conda install pip --yes | indent
+    conda update conda
+    conda install pip --yes | indent
+fi
 
 echo "nomkl" > $HOME/.heroku/miniconda/conda-meta/pinned
 echo "added pinned file in $HOME/.heroku/miniconda/conda-meta/pinned"
