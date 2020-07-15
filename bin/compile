@@ -60,6 +60,11 @@ source $BIN_DIR/steps/hooks/pre_compile
 # ### The Cache
 mkdir -p $CACHE_DIR
 
+# Restore old artifacts from the cache.
+for dir in $CACHED_DIRS; do
+  cp -R $CACHE_DIR/$dir . &> /dev/null || true
+done
+
 set +e
 # Create set-aside `.heroku` folder.
 mkdir .heroku &> /dev/null
@@ -73,6 +78,12 @@ source $BIN_DIR/steps/conda_compile
 
 # ### Finalize
 #
+
+# Store new artifacts in cache.
+for dir in $CACHED_DIRS; do
+  rm -rf $CACHE_DIR/$dir
+  cp -R $dir $CACHE_DIR/
+done
 
 # Set context environment variables.
 set-env PATH '$HOME/.heroku/miniconda/bin:$PATH'
