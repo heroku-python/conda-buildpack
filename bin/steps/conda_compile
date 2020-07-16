@@ -12,7 +12,7 @@ if [ ! -d /app/.heroku/miniconda ]; then
     hash -r
     # env
     echo '     test:'
-    ls /app/.heroku/miniconda
+    ls -a /app/.heroku
     
     conda update conda
     conda install pip --yes | indent
