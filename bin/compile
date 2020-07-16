@@ -74,7 +74,7 @@ set -e
 mkdir -p $(dirname $PROFILE_PATH)
 
 # Actuall do the conda steps.
-source $BIN_DIR/conda_compile
+source $BIN_DIR/steps/conda_compile
 
 # ### Finalize
 #
