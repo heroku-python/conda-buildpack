@@ -4,17 +4,8 @@ export PATH=$BUILD_DIR/.heroku/miniconda/bin:$PATH
 
 if [ ! -d /app/.heroku/miniconda ]; then
     puts-step "Preparing Python/Miniconda Environment"
-    curl -Os https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
-    bash ./Miniconda-latest-Linux-x86_64.sh  -p /app/.heroku/miniconda/ -b | indent
-    rm -fr Miniconda-latest-Linux-x86_64.sh
-    
-    
-    # Rehash executables in PATH.
-    hash -r
-    # env
-    echo '     test:'
-    bash ./Miniconda-latest-Linux-x86_64.sh  -p /app/.heroku/miniconda/
-    ls -a /app/.heroku
+    # curl -Os https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
+    bash $ROOT_DIR/ext/Miniconda-latest-Linux-x86_64.sh  -p /app/.heroku/miniconda/ -b | indent
     
     conda update conda
     conda install pip --yes | indent
