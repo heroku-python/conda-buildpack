@@ -10,7 +10,9 @@ if [ ! -d /app/.heroku/miniconda ]; then
     
     # Rehash executables in PATH.
     hash -r
-    env
+    # env
+    echo '     test:'
+    ls /app/.heroku/miniconda/bin
     
     conda update conda
     conda install pip --yes | indent
